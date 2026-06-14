@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interpiler — Learn How Code Works</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+
+<!-- ═══ HEADER ════════════════════════════════════════════════════════ -->
+<header class="header">
+  <div class="header-brand">
+    <div class="brand-icon">IP</div>
+    <div>
+      <div class="brand-name">Interpiler</div>
+      <div class="brand-sub">See how your code works — step by step</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="badge-beginner">🎓 Beginner Friendly</span>
+    <button class="btn-help" id="helpBtn">? How to use</button>
+  </div>
+</header>
+
+<!-- ═══ HELP BANNER (hidden by default) ══════════════════════════════ -->
+<div class="help-banner hidden" id="helpBanner">
+  <button class="help-close" id="helpClose">✕</button>
+  <h3>How to use Interpiler</h3>
+  <div class="help-grid">
+    <div class="help-item">
+      <span class="help-num">1</span>
+      <div><strong>Write rough code</strong> — don't worry about being perfect. Even broken code is useful!</div>
+    </div>
+    <div class="help-item">
+      <span class="help-num">2</span>
+      <div><strong>Click Run</strong> — Interpiler will try to understand your code.</div>
+    </div>
+    <div class="help-item">
+      <span class="help-num">3</span>
+      <div><strong>Watch the pipeline</strong> — see exactly which stage (Lexer → Parser → AST → Interpreter) is working and what it's doing.</div>
+    </div>
+    <div class="help-item">
+      <span class="help-num">4</span>
+      <div><strong>Read the feedback</strong> — errors are explained in plain English, and you get tips to fix your code.</div>
+    </div>
+  </div>
+  <p class="help-syntax">Quick syntax: <code>x = 5</code> &nbsp;·&nbsp; <code>print x</code> &nbsp;·&nbsp; <code>if (x &gt; 0) { print x }</code> &nbsp;·&nbsp; <code>while (x &lt; 5) { x = x + 1 }</code> &nbsp;·&nbsp; <code>for (i=0; i&lt;5; i=i+1) { print i }</code></p>
+</div>
+
+<!-- ═══ MAIN LAYOUT ════════════════════════════════════════════════════ -->
+<main class="layout">
+
+  <!-- LEFT: Code Editor -->
+  <section class="pane pane-editor">
+    <div class="pane-header">
+      <span class="pane-title">📝 Your Code</span>
+      <div class="pane-actions">
+        <button class="btn-sm" id="exampleBtn">Load Example</button>
+        <button class="btn-sm btn-danger" id="clearBtn">Clear</button>
+      </div>
+    </div>
+    <div class="editor-wrap">
+      <div class="line-nums" id="lineNums">1</div>
+      <textarea id="codeInput" class="editor" spellcheck="false"
+        placeholder="Write your code here...
+
+Example:
+x = 10
+if (x > 5) {
+    print x
+}"></textarea>
+    </div>
+    <div class="editor-footer">
+      <span class="cursor-info" id="cursorInfo">Ln 1, Col 1</span>
+      <button class="btn-run" id="runBtn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6z"/></svg>
+        Run Code
+      </button>
+    </div>
+  </section>
+
+  <!-- MIDDLE: Pipeline Visualizer -->
+  <section class="pane pane-pipeline">
+    <div class="pane-header">
+      <span class="pane-title">⚙️ Compiler &amp; Interpreter Pipeline</span>
+    </div>
+    <div class="pipeline-body" id="pipelineBody">
+      <div class="pipeline-idle">
+        <div class="idle-icon">🔍</div>
+        <p>Run your code to see how it flows through the compiler and interpreter — step by step.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Results -->
+  <section class="pane pane-results">
+    <div class="pane-header">
+      <span class="pane-title">📊 Results</span>
+      <div class="tab-row">
+        <button class="tab active" data-tab="output">Output</button>
+        <button class="tab" data-tab="errors">Errors & Tips</button>
+        <button class="tab" data-tab="memory">Memory</button>
+        <button class="tab" data-tab="ast">AST</button>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="tab-panel active" id="tab-output">
+      <pre class="result-box output-box" id="outputBox">// Your program output appears here</pre>
+    </div>
+
+    <!-- Errors & Suggestions -->
+    <div class="tab-panel" id="tab-errors">
+      <div id="errorsBox" class="result-box errors-box">
+        <span class="placeholder-text">No errors yet — run your code!</span>
+      </div>
+    </div>
+
+    <!-- Memory / Symbol table -->
+    <div class="tab-panel" id="tab-memory">
+      <div id="memoryBox" class="result-box memory-box">
+        <span class="placeholder-text">Variable values will appear here after running.</span>
+      </div>
+    </div>
+
+    <!-- AST viewer -->
+    <div class="tab-panel" id="tab-ast">
+      <div class="ast-info">The <strong>Abstract Syntax Tree</strong> is what the computer actually reads — your code turned into a tree of logical operations.</div>
+      <div id="astBox" class="result-box ast-box">
+        <span class="placeholder-text">AST will appear here after running.</span>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
